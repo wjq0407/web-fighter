@@ -3,10 +3,123 @@
     <head>
         <meta charset="UTF-8">
         <title>JS冲刺-王金强</title>
+        <style>
+            /* 1.清除默认边距 */
+            body{
+                margin: 0;
+                padding: 0;
+            }
 
+            /* 2.设置舞台样式 */
+            #stage{
+                width: 800px;
+                height: 400px;
+                background-color: #222;
+                margin: 50px auto;  /* 设置上下边距为50px，左右自动居中 */
+                position: relative; /* 设置相对定位，为了后续绝对定位的玩家元素能够相对于舞台进行定位 */
+                will-change: transform; /* 提前告知浏览器该元素将会发生变换，优化性能 */
+            }
+
+            @keyframes hitShake{
+                0% {transform: translate3d(0, 0, 0);} /* 初始状态，正常位置 */
+                20% {transform: translate3d(-6px, 3px, 0);} /* 向左偏移5px */
+                40% {transform: translate3d(5px, -4px, 0);} /* 向右偏移5px */
+                60% {transform: translate3d(-3px, 5px, 0);} /* 向左偏移3px */
+                80% {transform: translate3d(4px, 2px, 0);} /* 向右偏移3px */
+                100% {transform: translate3d(0, 0, 0);} /* 回到初始位置 */
+            }
+
+            .shake{
+                animation: hitShake 0.3s ease-in-out; /* 应用抖动动画，持续时间0.3秒，使用ease-in-out缓动函数 */
+            }
+
+            /* 3.设置通用玩家样式 */
+            .character{
+                width: 60px;
+                height: 80px;
+                position: absolute; /* 设置绝对定位，使玩家元素能够相对于舞台进行定位 */
+                bottom: 0; /* 将玩家元素固定在舞台底部 */
+            }
+
+            /* 4.设置玩家专属样式 */
+            #player{
+               background-color: red;
+               left: 100px;
+               transition: background-color 0.01s, width 0.01s; /* 添加过渡效果，使攻击状态的样式变化更平滑 */
+            }
+ 
+            #player-first{
+                width: 10px;
+                height: 10px;
+                background-color: yellow;
+                position: absolute;
+                top: 20px;
+                opacity: 0; /* 初始状态下隐藏攻击范围指示器 */
+            }
+
+            #player.attacking #player-first{
+               opacity: 1; /* 攻击状态下显示攻击范围指示器 */  
+               right: -50px; /* 调整攻击范围指示器的位置，使其更靠近敌人 */
+            }
+
+            /* 5.设置敌人专属样式 */
+            #enemy{
+                background-color: blue;
+                left: 600px;
+                transition: background-color 0.01s; /* 添加过渡效果，使被击中状态的样式变化更平滑 */
+            }
+
+            #enemy.attacking{
+                background-color: cyan;
+                width: 100px;
+                transition: none; /* 取消过渡效果，使攻击状态的样式立即生效 */
+            }
+
+            #enemy.hit{
+                background-color: purple;
+                transition: none; /* 取消过渡效果，使被击中状态的样式立即生效 */
+            }
+
+            /* 血条容器 */
+            #enemy-health-bar {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 200px;
+                height: 20px;
+                background-color: #555; /* 血条背景颜色 */
+                border: 2px solid #333; /* 血条边框 */
+            }
+
+            /* 血条填充 */
+            #enemy-health-fill {
+                width: 100%; /* 初始血量为100% */
+                height: 100%;
+                background-color: red; /* 血条填充颜色 */
+                transition: width 0.3s; /* 添加过渡效果，使血量变化更平滑 */
+            }
+
+            .face-left {
+                transform: scaleX(-1); /* 水平翻转角色，使其面向左边 */
+            }
+
+            .face-right {
+                transform: scaleX(1); /* 恢复正常状态，使角色面向右边 */
+            }
+        </style>
     </head>
     <body>
-        <h1>打开控制台输出信息</h1>
-        <script src="hello.js"></script>
+        
+         <div id="stage">
+                <div id="player" class="character">
+                    <div id="player-first"></div>
+                </div>
+                <div id="enemy" class="character"></div>
+                <div id="enemy-health-bar">
+                <div id="enemy-health-fill"></div>
+            </div>
+            </div>
+        </div>
     </body>
+    <script src="hello2.js"></script>
 </html>
