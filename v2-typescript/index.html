@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>格斗游戏 - TypeScript 重构版</title>
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="ui-overlay">
+            <!-- 玩家信息（左侧） -->
+            <div id="player-info">
+                <div id="player-name">PLAYER</div>
+                <div id="player-health-bar">
+                    <div id="player-health-fill"></div>
+                </div>
+            </div>
+
+            <!-- BO3 计分板（中间） -->
+            <div id="bo3-scoreboard">
+                <div id="round-title">ROUND 1</div>
+                <div id="score-display">
+                    <span id="player-score">0</span>
+                    <span id="score-separator">-</span>
+                    <span id="enemy-score">0</span>
+                </div>
+            </div>
+
+            <!-- 敌人信息（右侧） -->
+            <div id="enemy-info">
+                <div id="enemy-name">ENEMY</div>
+                <div id="enemy-health-bar">
+                    <div id="enemy-health-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="stage">
+            <div id="ground"></div>
+            <div id="ground-line"></div>
+            <div id="player">
+                <div id="player-first"></div>
+            </div>
+            <div id="enemy"></div>
+            <div id="revive-notice" class="hidden">复活中...</div>
+        </div>
+
+        <div id="controls">
+            <kbd>A</kbd> <kbd>D</kbd> 移动 | <kbd>空格</kbd> 跳跃 | <kbd>J</kbd> 攻击
+        </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
